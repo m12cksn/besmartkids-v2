@@ -1,0 +1,2 @@
+-- Seed data will be introduced with the database/content sprint.
+-- This file exists now so local Supabase conventions are stable from Sprint 1.
