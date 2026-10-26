@@ -101,3 +101,22 @@ QA changes now also retain screenshots from the viewport tests as CI artifacts
 for visual review. The strengthened 16-case suite must pass on its own new head;
 the earlier green workflow does not validate newly added tests. Actual browser
 toolbar zoom and the Windows-specific teardown diagnosis remain separate gaps.
+
+## Expanded CI and screenshot review
+
+Workflow 40257087801 passed on functional head 1f39e79: 10 unit tests and all
+16 E2E cases passed, with normal process exit. The push workflow also passed.
+Reviewed nine Chromium screenshots from artifact 12623440645: landing, grades
+and Grade 5 topics at each of 360, 768 and 1280 CSS px. No visible clipped text,
+collisions or broken mathematics artwork was found in those captures.
+
+Core color-token calculations: white on primary green 5.02:1, muted text on
+background 7.24:1, dark accent text on yellow 9.52:1. This is not a certification
+of all WCAG criteria or a screen-reader audit.
+
+A test-only extension in a disposable Chromium profile now adds actual tab zoom
+through chrome.tabs.setZoom(2), verifies getZoom()==2 and the expected 640 CSS px
+viewport from a 1280px window, then checks reflow/navigation and captures images.
+It has only loopback host access and is never part of the shipped application.
+This new 17th browser case still requires its own CI result; do not conflate it
+with the already passing 200% text-enlargement tests.

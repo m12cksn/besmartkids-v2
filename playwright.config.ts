@@ -13,8 +13,9 @@ export default defineConfig({
     trace: "on-first-retry",
   },
   projects: [
-    { name: "chromium", use: { ...devices["Desktop Chrome"] } },
-    { name: "mobile-chrome", use: { ...devices["Pixel 7"] } },
+    { name: "chromium", testIgnore: "**/browser-zoom.spec.ts", use: { ...devices["Desktop Chrome"] } },
+    { name: "mobile-chrome", testIgnore: "**/browser-zoom.spec.ts", use: { ...devices["Pixel 7"] } },
+    { name: "browser-zoom", testMatch: "**/browser-zoom.spec.ts" },
   ],
   webServer: {
     command: "node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3107",
