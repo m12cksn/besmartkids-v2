@@ -2,7 +2,7 @@ name: Quality checks
 on:
   pull_request:
   push:
-    branches: [sprint/01-foundation]
+    branches: [sprint/01-foundation, feat/sprint-1-public-experience]
 permissions:
   contents: read
 jobs:
@@ -21,8 +21,10 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e -- --reporter=line
       - uses: actions/upload-artifact@v4
-        if: failure()
+        if: always()
         with:
           name: playwright-results
-          path: test-results/
+          path: |
+            test-results/
+            playwright-report/
           retention-days: 7

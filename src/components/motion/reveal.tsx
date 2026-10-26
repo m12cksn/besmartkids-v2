@@ -21,10 +21,12 @@ export function Reveal({ children, className, delay = 0 }: RevealProps) {
   const reduceMotion = useSyncExternalStore(
     subscribeToReducedMotion,
     getReducedMotionSnapshot,
-    () => false,
+    // Prefer no motion until the browser preference is known.
+    () => true,
   );
   return (
     <motion.div
+      data-motion-reveal
       className={className}
       initial={false}
       animate={

@@ -67,6 +67,12 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* Enforce the preference before hydration, including Motion inline styles. */
+  [data-motion-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
   html {
     scroll-behavior: auto;
   }

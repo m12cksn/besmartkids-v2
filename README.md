@@ -33,7 +33,8 @@ npm run test:e2e -- --reporter=line
 ```
 
 `check` runs ESLint, TypeScript and Vitest. `build` creates production output but
-does not deploy it. Playwright needs its matching Chromium binary. See
+does not deploy it. Playwright needs its matching Chromium binary. It owns port 3107 and refuses
+to reuse another server. Keep that port free; the dev server may use port 3000. See
 [the Sprint 1 report](docs/reports/SPRINT_1.md) for actual results and pending QA.
 GitHub Actions repeats the quality gates on pull requests; configuration is not
 evidence that a workflow has passed.

@@ -58,3 +58,46 @@ covered desktop/mobile widths, but CI and human review should still confirm fina
 visual polish and the Playwright teardown behavior.
 
 No merge or deployment was performed.
+
+## Follow-up QA preparation — 26 October 2026
+
+Reviewed GitHub head 5b14b688554922509fcc7ee638b008ec6ce96894 directly.
+GitHub returned zero workflow runs and zero pull requests. The workflow only
+listened to PRs and pushes to the foundation branch, so pushing the feature
+branch alone did not trigger CI.
+
+Local follow-up changes:
+- Also trigger CI on pushes to feat/sprint-1-public-experience.
+- Give E2E an owned production server on port 3107, forbid reusing a developer's
+  existing server, and keep HTML reports from auto-opening. A two-minute suite
+  timeout reports failure rather than silently force-exiting. These are runner
+  safeguards, not a verified fix for the Windows teardown hang.
+- Default to reduced motion until the client preference is known; CSS enforces
+  stationary, fully opaque reveal content before/during hydration.
+- Add frame-sampling assertions for actual reduced-motion output.
+- Add 200% text enlargement/reflow assertions at 640 CSS px. This is explicitly
+  text resizing, not a claim that browser toolbar zoom has been tested.
+
+Follow-up results: npm run check and npm run build pass; 3 unit files / 10 tests,
+11 generated pages. Playwright --list discovers 16 cases. Browser execution and
+manual visual review remain pending because the matching Chromium download is
+invalid in this environment. Do not count test discovery as a passing E2E run.
+The Windows teardown issue remains unverified until a complete run exits 0.
+
+Follow-up remote delivery: repository tree creation and draft PR creation both
+returned 403 Resource not accessible by integration. No follow-up QA changes were
+uploaded, no PR was created, and no CI pass is claimed. A patch against 5b14b68
+is provided for application via the user's authenticated VS Code checkout.
+
+
+## GitHub connection restored and CI verified
+
+GitHub writes now work through the corrected account connection. Draft PR #1
+was created; workflow 40256805179 passed on head 5b14b68, including the Playwright
+step with a normal successful exit on Linux. No merge/deployment occurred.
+The historical 403 delivery blockers above are resolved.
+
+QA changes now also retain screenshots from the viewport tests as CI artifacts
+for visual review. The strengthened 16-case suite must pass on its own new head;
+the earlier green workflow does not validate newly added tests. Actual browser
+toolbar zoom and the Windows-specific teardown diagnosis remain separate gaps.
