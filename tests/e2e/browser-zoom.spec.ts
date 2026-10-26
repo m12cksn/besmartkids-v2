@@ -46,8 +46,8 @@ test("public pages reflow at actual 200 percent browser zoom", async ({}, testIn
         if (!box || box.y < 0) continue;
         expect(await link.evaluate(element => element.scrollWidth <= element.clientWidth + 1)).toBe(true);
       }
-      evidence.push({ route, zoom: factor, cssViewport: await page.evaluate(() => innerWidth) });
-      await page.screenshot({ path: testInfo.outputPath(`zoom-200-${route === "/" ? "landing" : route.replaceAll("/", "-")}.png`), fullPage: true, animations: "disabled" });
+      evidence.push({ route, zoom: factor, cssViewport: await page.evaluate(() => innerWidth), physicalViewport: page.viewportSize(), devicePixelRatio: await page.evaluate(() => devicePixelRatio) });
+      await page.screenshot({ path: testInfo.outputPath(`zoom-200-${route === "/" ? "landing" : route.replaceAll("/", "-")}.png`), fullPage: false, animations: "disabled" });
     }
     await page.getByRole("link", { name: "Kembali ke pilihan kelas", exact: true }).click();
     await expect(page).toHaveURL(/\/grades$/);

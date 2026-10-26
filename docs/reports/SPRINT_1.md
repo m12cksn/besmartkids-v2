@@ -120,3 +120,14 @@ viewport from a 1280px window, then checks reflow/navigation and captures images
 It has only loopback host access and is never part of the shipped application.
 This new 17th browser case still requires its own CI result; do not conflate it
 with the already passing 200% text-enlargement tests.
+
+
+## Actual zoom result
+
+Workflow 40257622477 passed all 17 E2E cases (12.9s) on f026136, including
+browser.tabs zoom=2 and 640 CSS px for each of the three public pages from a
+1280px window. Build, lint, typecheck and all 10 unit tests also passed.
+The full-page screenshot exporter clipped the zoomed output; viewport-only zoom
+captures replace it for accurate visual review. DOM overflow and label checks
+passed; the export issue is not being represented as a confirmed application
+layout defect. Current screenshot-review evidence and CI links are in PR #1.
